@@ -5,6 +5,8 @@
 ### Begin 2025-4-2
 
 ### PMID: 39962241
+        
+        
 
 ### Author：honghui Zhao
 
@@ -22,9 +24,9 @@ library(Cairo)
 options(bitmapType='cairo')
 
 ### setwd path
-setwd('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin')
+setwd('/Glioma/health_barin')
 
-rawsce <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/intergated_snRNA.rds')
+rawsce <- readRDS('/Glioma/health_barin/intergated_snRNA.rds')
 rawsce <- data
 ### Gene names and developmental names are modified
 # 1. 检查列类型（确认是否因子）
@@ -90,4 +92,4 @@ head(rawsce@meta.data$donor_tissue)
 #查看各组合的计数是否与原表一致
 table(rawsce@meta.data$donor_tissue)
 ### 保存原始分析数据
-saveRDS(rawsce,file = '/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/newsymbols.rds')
+saveRDS(rawsce,file = '/Glioma/health_barin/newsymbols.rds')
