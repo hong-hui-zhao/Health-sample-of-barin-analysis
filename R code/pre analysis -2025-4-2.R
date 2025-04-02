@@ -4,7 +4,7 @@ library(harmony)
 library(sctransform)
 library(Cairo)
 
-sce <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/Panos.rds')
+sce <- readRDS('/Glioma/health_barin/Panos.rds')
 
 DefaultAssay(sce) <- 'RNA'
 grep("^MT-", rownames(sce), value = TRUE)
@@ -41,6 +41,6 @@ sce <- FindNeighbors(sce, reduction = "harmony_sct", dims = 1:15, assay = "SCT")
 sce <- FindClusters(sce, resolution = seq(0.1, 1.0, by = 0.1), graph.name = "SCT_snn")
 
 
-saveRDS(sce, file = "/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/intergated_snRNA.rds")
+saveRDS(sce, file = "/intergated_snRNA.rds")
 
 
