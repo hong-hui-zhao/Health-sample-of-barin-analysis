@@ -5,6 +5,10 @@
 ### Begin 2025-4-2
 
 ### PMID: 39962241
+        
+        
+        
+        
 
 ### Author：honghui Zhao
 
@@ -22,9 +26,9 @@ library(Cairo)
 options(bitmapType='cairo')
 
 ### setwd path
-setwd('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin')
+setwd('~/Glioma/health_barin')
 
-rawsce <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/Panos.rds')
+rawsce <- readRDS('~/Glioma/health_barin/Panos.rds')
 rawsce <- data
 ### Gene names and developmental names are modified
 # 1. 检查列类型（确认是否因子）
@@ -89,7 +93,7 @@ head(rawsce@meta.data$donor_tissue)
 #查看各组合的计数是否与原表一致
 table(rawsce@meta.data$donor_tissue)
 ### 保存原始分析数据
-saveRDS(rawsce,file = '/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/newsymbols.rds')
+saveRDS(rawsce,file = '~/Glioma/health_barin/newsymbols.rds')
 
 
 #### 第二步分析 -----
@@ -98,7 +102,7 @@ saveRDS(rawsce,file = '/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/n
 rm(list=ls())
 
 ### loading data
-sce <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/newsymbols.rds')
+sce <- readRDS('~/Glioma/health_barin/newsymbols.rds')
 
 # 同时运行两种流程
 sce <- NormalizeData(sce, normalization.method = "LogNormalize") 
@@ -114,18 +118,18 @@ sce <- SCTransform(
 
 # 传统流程分析
 sce <- RunPCA(sce, assay = "RNA", npcs = 50, verbose = FALSE)
-sce <- RunHarmony(sce, group.by.vars = "orig.ident", assay.use = "RNA", reduction = "pca", dims.use = 1:20)
+sce <- RunHarmony(sce, group.by.vars = "donor_tissue", assay.use = "RNA", reduction = "pca", dims.use = 1:20)
 sce <- RunUMAP(sce, reduction = "harmony", dims = 1:20, reduction.name = "umap_rna")
 sce <- FindNeighbors(sce, reduction = "harmony", dims = 1:20, assay = "RNA")
 sce <- FindClusters(sce, resolution = seq(0.1, 1.0, by = 0.1), graph.name = "RNA_snn")
 
 # SCTransform 流程分析
 sce <- RunPCA(sce, assay = "SCT", npcs = 50, verbose = FALSE, reduction.name = "pca_sct")
-sce <- RunHarmony(sce, group.by.vars = "orig.ident", assay.use = "SCT", reduction = "pca_sct", dims.use = 1:15, reduction.name = "harmony_sct")
+sce <- RunHarmony(sce, group.by.vars = "donor_tissue", assay.use = "SCT", reduction = "pca_sct", dims.use = 1:15, reduction.name = "harmony_sct")
 sce <- RunUMAP(sce, reduction = "harmony_sct", dims = 1:15, reduction.name = "umap_sct")
 sce <- FindNeighbors(sce, reduction = "harmony_sct", dims = 1:15, assay = "SCT")
 sce <- FindClusters(sce, resolution = seq(0.1, 1.0, by = 0.1), graph.name = "SCT_snn")
-saveRDS(sce, file = "/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/intergated_snRNA.rds")
+saveRDS(sce, file = "~/intergated_snRNA.rds")
 
 
 # 结果对比
