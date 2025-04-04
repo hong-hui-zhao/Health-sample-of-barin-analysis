@@ -5,6 +5,10 @@
 ### Begin 2025-4-2
 
 ### PMID: 39962241
+        
+        
+        
+        
 
 ### Author：honghui Zhao
 
@@ -26,12 +30,12 @@ library(cols4all)
 options(bitmapType='cairo')
 
 ### setwd path
-setwd('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin')
+setwd('Glioma/health_barin')
 
-pngpath <- '/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/PDF_PNG'
+pngpath <- 'Glioma/health_barin/PDF_PNG'
 
 
-sce <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/intergated_snRNA.rds')
+sce <- readRDS('Glioma/health_barin/intergated_snRNA.rds')
 
 
 #### basic plot
