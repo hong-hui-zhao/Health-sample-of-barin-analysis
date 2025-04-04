@@ -2,9 +2,13 @@
 
 ### health Brain sample analysis
 
-### Begin 2025-4-2
+### Begin 2025-4-4
 
 ### PMID: 39962241
+        
+        
+        
+        
 
 ### Author：honghui Zhao
 
@@ -14,21 +18,21 @@
 library(SingleR)
 library(Seurat)
 library(scCATCH)
-setwd('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin')
+setwd('/health_barin')
 
 #### load data
-sce <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/intergated_snRNA.rds')
+sce <- readRDS('health_barin/intergated_snRNA.rds')
 sce <- SetIdent(sce,value = "SCT_snn_res.0.4")
 
 ### load ref data
 
 ### singleR
 
-BlueprintEncode <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/SingleR/BlueprintEncodeData.rds')
-DatabaseImmune <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/SingleR/DatabaseImmuneCellExpressionData.rds')
-HPCA <- readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/SingleR/HumanPrimaryCellAtlasData.rds')
-Monaco <-readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/SingleR/MonacoImmuneData.rds')
-Novershtern <-readRDS('/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/SingleR/NovershternHematopoieticData.rds')
+BlueprintEncode <- readRDS('/Glioma/SingleR/BlueprintEncodeData.rds')
+DatabaseImmune <- readRDS('/SingleR/DatabaseImmuneCellExpressionData.rds')
+HPCA <- readRDS('/SingleR/HumanPrimaryCellAtlasData.rds')
+Monaco <-readRDS('/SingleR/MonacoImmuneData.rds')
+Novershtern <-readRDS('/SingleR/NovershternHematopoieticData.rds')
 
 
 # 1. 加载所有人类参考数据集 ----------------------------------------------------
@@ -45,7 +49,7 @@ ref_list <- list(
 sce <- SetIdent(sce,value = "SCT_snn_res.0.4")
 ens <- as.matrix(sce@assays[["SCT"]]@data@Dimnames[[1]])
 
-GRCh38_113 <- read.csv("/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/GRCh38.113.csv",header = TRUE,row.names =1)
+GRCh38_113 <- read.csv("/Glioma/GRCh38.113.csv",header = TRUE,row.names =1)
 GRCh38_113 <- na.omit(GRCh38_113)
 # 创建映射关系
 id_mapping <- setNames(GRCh38_113$gene_symbol, GRCh38_113$ensembl_gene_id)
@@ -86,7 +90,7 @@ celltype_df <- data.frame(
   stringsAsFactors = FALSE
 )
 # 5. 注释结果导出 ------------------------------------------------------------
-write.csv(celltype_df,file = '/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/singleR_anno.csv')
+write.csv(celltype_df,file = '/Glioma/health_barin/singleR_anno.csv')
 
 ### scCATCH
 # 创建scCATCH对象
@@ -98,16 +102,16 @@ obj <- findmarkergene(obj, species = "Human", marker = cellmatch,tissue = "Brain
 obj <- findcelltype(obj)
 celltype_scCATCH <- as.data.frame(obj@celltype)
 celltype_scCATCH <- as.data.frame(obj@celltype$cell_type,obj@celltype$cluster)
-write.csv(celltype_scCATCH,file = '/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/celltype_scCATCH.csv')
+write.csv(celltype_scCATCH,file = '/Glioma/health_barin/celltype_scCATCH.csv')
 
 
 #### SCtype
 lapply(c("dplyr","Seurat","HGNChelper","openxlsx"), library, character.only = T)
-source("/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/sc-type-master/sc-type-master/R/gene_sets_prepare.R")
-source("/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/sc-type-master/sc-type-master/R/sctype_score_.R")
+source("/sc-type-master/sc-type-master/R/gene_sets_prepare.R")
+source("/sc-type-master/sc-type-master/R/sctype_score_.R")
 
 
-db = "/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/sc-type-master/sc-type-master/ScTypeDB_full.xlsx"
+db = "/sc-type-master/sc-type-master/ScTypeDB_full.xlsx"
 tissue = "Brain"
 
 # prepare gene sets
@@ -125,9 +129,9 @@ cL_resutls = do.call("rbind", lapply(unique(sce@meta.data$SCT_snn_res.0.4), func
 }))
 
 sctype_scores = cL_resutls %>% group_by(cluster) %>% top_n(n = 1, wt = scores)  
-write.csv(sctype_scores,file="/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/sctype_scores.csv")
+write.csv(sctype_scores,file="/Glioma/health_barin/sctype_scores.csv")
 
-saveRDS(sce,file = '/sibcb1/douxiaoyanglab1/zhaohonghui/Glioma/health_barin/newsymbols.rds')
+saveRDS(sce,file = '/Glioma/health_barin/newsymbols.rds')
 
 
 library(SCINA)
@@ -165,39 +169,39 @@ DimPlot(data, group.by = "SCINA_celltype",raster=FALSE)
 # 按细胞类型分组标记基因（已调整部分可能拼写问题，如NEST改为NES）
 celltype_markers <- list(
   # 兴奋性神经元（补充谷氨酸能神经元相关基因）
-  Excitatory_neurons = c("SLC17A7", "SLC17A6", "SYNPR", "GRIN1", "CAMK2A", "GRIN2B", "GLS", "GRIN2A"),  # 新增Glutamatergic神经元Marker[1,3](@ref)
+  Excitatory_neurons = c("SLC17A7", "SLC17A6", "SYNPR", "GRIN1", "CAMK2A", "GRIN2B", "GLS", "GRIN2A"),  
   # 抑制性神经元（补充GABA能神经元相关基因）
-  Inhibitory_neurons = c("GAD1", "GAD2", "SLC32A1", "PVALB", "SST", "VIP","GABBR1", "GABBR2"),        # 新增GABAergic神经元Marker[1,3](@ref)
+  Inhibitory_neurons = c("GAD1", "GAD2", "SLC32A1", "PVALB", "SST", "VIP","GABBR1", "GABBR2"),       
   
   # 星形胶质细胞（补充免疫调节相关基因）
-  Astrocytes = c("GFAP", "AQP4", "SLC1A3", "ALDH1L1", "GLUL","S100B", "CD40", "CD80", "CD86", "C5AR1", "SLC1A2"),  # 新增免疫互作Marker[1,4](@ref)
+  Astrocytes = c("GFAP", "AQP4", "SLC1A3", "ALDH1L1", "GLUL","S100B", "CD40", "CD80", "CD86", "C5AR1", "SLC1A2"),  
   
   # 少突胶质细胞（补充发育阶段特异性基因）
-  Oligodendrocytes = c("MBP", "PLP1", "MOBP", "OLIG2", "CNP","OLIG1", "CLDN11", "MOG", "MAG", "GALC", "UGT8"),  # 新增成熟少突胶质Marker[1,3](@ref)
+  Oligodendrocytes = c("MBP", "PLP1", "MOBP", "OLIG2", "CNP","OLIG1", "CLDN11", "MOG", "MAG", "GALC", "UGT8"), 
   
   # 小胶质细胞（补充激活状态标志物）
-  Microglia = c("CX3CR1", "P2RY12", "TMEM119", "AIF1", "CD68","ITGAM", "C1QA", "ADGRE1", "TNF", "CCL4"),  # 新增炎症反应相关基因[1,4](@ref)
+  Microglia = c("CX3CR1", "P2RY12", "TMEM119", "AIF1", "CD68","ITGAM", "C1QA", "ADGRE1", "TNF", "CCL4"), 
   
   # 内皮细胞（补充血管生成相关基因）
-  Endothelial = c("CLDN5", "FLT1", "PECAM1", "CD34", "ICAM1","VWF", "A2M", "APOLD1", "ENG", "CDH5"),    # 新增血管通透性Marker[1,3](@ref)
+  Endothelial = c("CLDN5", "FLT1", "PECAM1", "CD34", "ICAM1","VWF", "A2M", "APOLD1", "ENG", "CDH5"),   
   
   # 少突胶质前体细胞（补充表面受体）
-  OPC = c("PDGFRA", "CSPG4", "SOX10","LHFPL3", "MEGF11", "PCDH15"),                   # 新增细胞黏附分子[1,3](@ref)
+  OPC = c("PDGFRA", "CSPG4", "SOX10","LHFPL3", "MEGF11", "PCDH15"),                  
   
   # 神经前体细胞（补充增殖标志物）
-  NPC = c("NES", "MKI67", "EOMES", "ASCL1","SOX2", "PAX6", "OTX2", "SMARCA4"),             # 新增发育调控因子[1,3](@ref)
+  NPC = c("NES", "MKI67", "EOMES", "ASCL1","SOX2", "PAX6", "OTX2", "SMARCA4"),            
   
   # 新增特殊神经元类型（来自单细胞数据库）
-  Cholinergic_neurons = c("CHAT", "SLC18A3", "ACHE"),          # 胆碱能神经元[1,3](@ref)
-  Dopaminergic_neurons = c("TH", "SLC6A3", "FOXA2", "KCNJ6", "NR4A2"),  # 多巴胺能神经元[1,3](@ref)
-  Serotonergic_neurons = c("TPH1", "SLC6A4", "FEV", "HTR1A"),  # 五羟色胺能神经元[1,3](@ref)
+  Cholinergic_neurons = c("CHAT", "SLC18A3", "ACHE"),          
+  Dopaminergic_neurons = c("TH", "SLC6A3", "FOXA2", "KCNJ6", "NR4A2"),  
+  Serotonergic_neurons = c("TPH1", "SLC6A4", "FEV", "HTR1A"),  
   
   # 新增胶质细胞亚型（参考最新脑图谱）
-  Myelinating_Schwann = c("SOX10", "EGR2", "MBP", "MPZ"),      # 髓鞘形成施万细胞[1,4](@ref)
-  Non_myelinating_Schwann = c("SOX10", "GAP43", "NCAM1"),     # 非髓鞘施万细胞[1,4](@ref)
-  Radial_glial = c("VIM", "NES", "PAX6", "HES1", "FABP7"),     # 放射状胶质细胞[1,4](@ref)
+  Myelinating_Schwann = c("SOX10", "EGR2", "MBP", "MPZ"),      
+  Non_myelinating_Schwann = c("SOX10", "GAP43", "NCAM1"),     
+  Radial_glial = c("VIM", "NES", "PAX6", "HES1", "FABP7"),     
   
   # 新增肿瘤相关细胞（整合癌症数据库）
-  Cancer_cells = c("CD44", "MBTPS2", "PARP1"),                 # 普通肿瘤细胞[1,3](@ref)
-  Cancer_stem_cells = c("FUT4", "MSI1", "NES", "PROM1")        # 肿瘤干细胞[1,3](@ref)
+  Cancer_cells = c("CD44", "MBTPS2", "PARP1"),                
+  Cancer_stem_cells = c("FUT4", "MSI1", "NES", "PROM1")        
 )
