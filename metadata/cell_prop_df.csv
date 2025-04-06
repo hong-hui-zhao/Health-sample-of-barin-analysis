@@ -1,0 +1,56 @@
+"","celltype","life_stage","Proportion"
+"1","Oligodendrocyte","Adolescence",27.8704981804492
+"2","Oligodendrocyte precursor cell","Adolescence",12.8456100723637
+"3","Astrocyte","Adolescence",14.1632157945372
+"4","Glutamatergic neurons","Adolescence",3.5219810097461
+"5","Microglia cell","Adolescence",18.5385033672146
+"6","Bergmann glial cell","Adolescence",10.2731417576442
+"7","GABAergic neurons","Adolescence",5.59250428744719
+"8","Endothelial cell","Adolescence",3.12042498013134
+"9","Smooth muscle cell","Adolescence",2.17509516041327
+"10","Lepotomeningeal cell","Adolescence",1.68569874932028
+"11","Ependymal cell","Adolescence",0.21332664073284
+"12","Oligodendrocyte","Early adulthood",26.8617021276596
+"13","Oligodendrocyte precursor cell","Early adulthood",11.5359042553191
+"14","Astrocyte","Early adulthood",15.3922872340426
+"15","Glutamatergic neurons","Early adulthood",15.9042553191489
+"16","Microglia cell","Early adulthood",8.92952127659574
+"17","Bergmann glial cell","Early adulthood",4.50132978723404
+"18","GABAergic neurons","Early adulthood",13.4242021276596
+"19","Endothelial cell","Early adulthood",1.15026595744681
+"20","Smooth muscle cell","Early adulthood",1.30984042553191
+"21","Lepotomeningeal cell","Early adulthood",0.638297872340425
+"22","Ependymal cell","Early adulthood",0.352393617021277
+"23","Oligodendrocyte","infant",10.9559898949608
+"24","Oligodendrocyte precursor cell","infant",23.5274564552586
+"25","Astrocyte","infant",16.4073926339583
+"26","Glutamatergic neurons","infant",13.2362717723707
+"27","Microglia cell","infant",7.97766254487435
+"28","Bergmann glial cell","infant",10.3111288392501
+"29","GABAergic neurons","infant",11.441297699774
+"30","Endothelial cell","infant",2.59274032708416
+"31","Smooth muscle cell","infant",1.62877276957851
+"32","Lepotomeningeal cell","infant",1.15676106900678
+"33","Ependymal cell","infant",0.764525993883792
+"34","Oligodendrocyte","Late adulthood",48.0552952202437
+"35","Oligodendrocyte precursor cell","Late adulthood",6.96344892221181
+"36","Astrocyte","Late adulthood",3.5941893158388
+"37","Glutamatergic neurons","Late adulthood",13.9643861293346
+"38","Microglia cell","Late adulthood",9.33926897844424
+"39","Bergmann glial cell","Late adulthood",3.42549203373946
+"40","GABAergic neurons","Late adulthood",9.94376757263355
+"41","Endothelial cell","Late adulthood",1.88847235238988
+"42","Smooth muscle cell","Late adulthood",1.78069353327085
+"43","Lepotomeningeal cell","Late adulthood",0.7029053420806
+"44","Ependymal cell","Late adulthood",0.342080599812559
+"45","Oligodendrocyte","Middle childhood",39.9097574732093
+"46","Oligodendrocyte precursor cell","Middle childhood",16.0406091370558
+"47","Astrocyte","Middle childhood",11.0584696371498
+"48","Glutamatergic neurons","Middle childhood",7.36980635457793
+"49","Microglia cell","Middle childhood",6.99379582628314
+"50","Bergmann glial cell","Middle childhood",6.40721940214326
+"51","GABAergic neurons","Middle childhood",6.46362098138748
+"52","Endothelial cell","Middle childhood",2.66591464561008
+"53","Smooth muscle cell","Middle childhood",2.12069937958263
+"54","Lepotomeningeal cell","Middle childhood",0.646738108667043
+"55","Ependymal cell","Middle childhood",0.323369054333521
